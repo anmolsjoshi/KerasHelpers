@@ -4,6 +4,8 @@ from tensorflow.python.keras.layers import Dense, Input
 from tensorflow.python.keras import optimizers, losses
 from tensorflow.python.keras.utils import to_categorical
 from ActivationStudy import GradientActivationStore
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -22,11 +24,9 @@ output = Dense(10, activation='softmax')(l)
 
 model = Model(inputs=x_in, outputs=output)
 
-print (model.summary())
-
 model.compile(loss=losses.categorical_crossentropy, optimizer=optimizers.SGD(lr=0.001))
 
+cbk = GradientActivationStore(DIR='logs', filename='test', num_classes=10, record_every=1, only_weights=True)
 
-cbk = GradientActivationStore(DIR='logs', num_classes=10, record_every=1, only_weights=False)
-
-cbbk = model.fit(x=x_train[:100], y=y_train_hot[:100], batch_size=32, epochs=3, callbacks=[cbk], validation_data=(x_test, y_test_hot))
+fitting = model.fit(x=x_train[:100], y=y_train_hot[:100], batch_size=32,
+                 epochs=3, callbacks=[cbk], validation_data=(x_test[:100], y_test_hot[:100]), verbose=1)
