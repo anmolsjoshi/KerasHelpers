@@ -22,7 +22,7 @@ class GradientActivationStore(Callback):
     For example - parameters['epoch0']['dense_1'] contains the activations of the first layer at the start of training
     """
 
-    def __init__(self, DIR, filename, num_classes, record_every=None, only_weights=False):
+    def __init__(self, DIR, num_classes, record_every=None, only_weights=False):
         super(GradientActivationStore, self).__init__()
 
         """
@@ -38,11 +38,7 @@ class GradientActivationStore(Callback):
         if not os.path.exists(DIR):
             os.makedirs(DIR)
 
-        if not os.path.exists(os.path.join(DIR, filename)):
-            os.makedirs(os.path.join(DIR, filename))
-
         self.DIR = DIR
-        self.filename = filename
 
         # Placeholder is required to calculate gradients and activations
         self.num_classes = num_classes
@@ -178,5 +174,5 @@ class GradientActivationStore(Callback):
         Saves gradients and activations of validation set to disk
         """
 
-        dd.io.save(os.path.join(self.DIR, self.filename, 'gradients.h5'), self.gradients)
-        dd.io.save(os.path.join(self.DIR, self.filename, 'activations.h5'), self.activations)
+        dd.io.save(os.path.join(self.DIR, 'gradients.h5'), self.gradients)
+        dd.io.save(os.path.join(self.DIR, 'activations.h5'), self.activations)
