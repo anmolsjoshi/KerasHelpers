@@ -37,8 +37,9 @@ class GradientActivationStore(Callback):
         # Creates directory with subfolders to save gradients and activations
         if not os.path.exists(DIR):
             os.makedirs(DIR)
-            os.makedirs(os.path.join(DIR, 'activations'))
-            os.makedirs(os.path.join(DIR, 'gradients'))
+
+        if not os.path.exists(os.path.join(DIR, filename)):
+            os.makedirs(os.path.join(DIR, filename))
 
         self.DIR = DIR
         self.filename = filename
@@ -177,5 +178,5 @@ class GradientActivationStore(Callback):
         Saves gradients and activations of validation set to disk
         """
 
-        dd.io.save(os.path.join(self.DIR, 'gradients', self.filename + '-gradients.h5'), self.gradients)
-        dd.io.save(os.path.join(self.DIR, 'activations', self.filename + '-activations.h5'), self.activations)
+        dd.io.save(os.path.join(self.DIR, self.filename, 'gradients.h5'), self.gradients)
+        dd.io.save(os.path.join(self.DIR, self.filename, 'activations.h5'), self.activations)
