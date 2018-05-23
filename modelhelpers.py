@@ -3,7 +3,9 @@ import os
 
 def model_placement(model, num_gpus):
     
-    if num_gpus > 1: 
+    if num_gpus > 1:
+        from tensorflow.python.keras.utils import multi_gpu_model
+        
         with tf.device('/cpu:0'):
             p_model = model
         parallel_model = multi_gpu_model(p_model, gpus=num_gpus)
