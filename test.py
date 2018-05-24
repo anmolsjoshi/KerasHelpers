@@ -3,7 +3,7 @@ from tensorflow.python.keras.models import Model
 from tensorflow.python.keras.layers import Dense, Input
 from tensorflow.python.keras import optimizers, losses
 from tensorflow.python.keras.utils import to_categorical
-from ActivationStudy import GradientActivationStore
+from modelhelpers import GradientActivationStore
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
