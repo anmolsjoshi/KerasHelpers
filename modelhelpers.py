@@ -12,6 +12,18 @@ import os
 
 def model_placement(model, num_gpus):
     
+    """
+    Function to place model on correct device based on number of GPUs.
+    
+    Input:
+        - model: model to fit. Model class using Keras Functional API.
+        - num_gpus: Number of GPUs. 0 for CPU mode. 
+    
+    Returns:
+        - p_model: model placed on appropriate device. 
+    
+    """
+    
     if num_gpus > 1:
         from tensorflow.python.keras.utils import multi_gpu_model
         
